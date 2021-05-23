@@ -1,0 +1,117 @@
+{
+    "Php connection setup": {
+        "prefix": "!baglanti",
+        "body": [
+            "<?php",
+            "$$host   =\"localhost\";",
+            "$$dbname =\"cet4005_2021\";",
+            "$$user = \"root\";",
+            "$$pass = \"\";",
+            "try{",
+            "\t$$db = new PDO(\"mysql:host=$$host;dbname=$$dbname;charset=utf8\",$$user,$$pass);",
+            "}",
+            "catch(PDOException $$e){",
+            "\tdie($$e->getMessage());",
+            "}",
+            "?>"
+        ],
+        "description": "This will make connection for php"
+    },
+    "Php search value": {
+        "prefix": "!selectdata",
+        "body": [
+            "<?php",
+            "include \"baglanti.php\";",
+
+            "$$no = $$_POST[\"no\"];",
+            "$$q = $$db->query(\"SELECT * FROM ogrenci WHERE ogr_no=$$no\")->fetch(PDO::FETCH_ASSOC);",
+            "if($$q){",
+            "\techo json_encode($$q);",
+            "}else{",
+            "\techo 0;",
+            "}",
+            "?>"
+        ],
+        "description": "This will search value from database"
+    },
+    "Php bring all data": {
+        "prefix": "!selectall",
+        "body": [
+            "<?php",
+            "include \"connection.php\";",
+
+            "$$ogr = array();",
+            "$$q = $$db->query(\"SELECT * FROM ogrenci\", PDO::FETCH_ASSOC);",
+            "if($$q->rowCount()){",
+            "\tforeach ($$q as $$r) {",
+            "\t$$ogr[] = [\"ad\"=>$$r[\"ogr_ad\"], \"soyad\"=>$$r[\"ogr_soyad\"], \"no\"=>$$r[\"ogr_no\"]];",
+            "\t}",
+            "\t}",
+
+            "echo json_encode($$ogr);",
+            "?>"
+        ],
+        "description": "This will bring all data and add into a dictionary array"
+    },
+    "Php update data": {
+        "prefix": "!update",
+        "body": [
+            "<?php",
+            "include \"baglanti.php\";",
+            "$$ad = $$_POST[\"ad\"];",
+            "$$soyad = $$_POST[\"soyad\"];",
+            "$$no = $$_POST[\"no\"];",
+            "$$q = $$db->prepare(\"UPDATE ogrenci SET ogr_ad=?, ogr_soyad=? where ogr_no=?\");",
+            "$$r = $$q->execute(array($$ad, $$soyad, $$no));",
+            "if($$r){",
+            "\techo 1;",
+            "}",
+            "else{",
+            "\techo 0;",
+            "}",
+
+            "?>"
+        ],
+        "description": "This will bring update command for php"
+    },
+    "Php insert data": {
+        "prefix": "!insert",
+        "body": [
+            "<?php",
+            "include \"baglanti.php\";",
+            "$$ad = $$_POST[\"ad\"];",
+            "$$soyad = $$_POST[\"soyad\"];",
+            "$$no = $$_POST[\"no\"];",
+            "$$q = $$db->prepare(\"INSERT INTO ogrenci SET ogr_ad=?, ogr_soyad=?, ogr_no=?\");",
+            "$$r = $$q->execute(array($$ad, $$soyad, $$no));",
+            "if($$r){",
+            "\techo 1;",
+            "}",
+            "else{",
+            "\techo 0;",
+            "}",
+
+            "?>"
+        ],
+        "description": "This will bring insert command for php"
+    },
+    "Php delete data": {
+        "prefix": "!delete",
+        "body": [
+            "<?php",
+            "include \"baglanti.php\";",
+            "$$no = $$_POST[\"no\"];",
+            "$$q = $$db->prepare(\"DELETE FROM ogrenci where ogr_no=?\");",
+            "$$r = $$q->execute(array($$no));",
+            "if($$r){",
+            "echo 1;",
+            "}",
+            "else{",
+            "echo 0;",
+            "}",
+
+            "?>"
+        ],
+        "description": "This will bring delete command for php"
+    }
+}

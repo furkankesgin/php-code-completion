@@ -1,0 +1,24 @@
+{
+    "name": "php-basics-code-complete",
+    "displayName": "Php basics code complete",
+    "description": "Help to remember basics in php",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.28.0"
+    },
+    "categories": [
+        "Snippets"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "php",
+                "path": "./snippets/snippets.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/snippets.json"
+            }
+        ]
+    }
+}
