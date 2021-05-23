@@ -3,6 +3,11 @@
     "displayName": "Php basics code complete",
     "description": "Help to remember basics in php",
     "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/furkankesgin/php-code-completion"
+    },
+    "icon": "img/icon.png",
     "engines": {
         "vscode": "^1.28.0"
     },
